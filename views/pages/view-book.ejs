@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+
+        .products-container {
+            width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .product-card {
+            width: 250px;
+            background: #64f891;
+            color: rgb(65, 65, 65);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            text-align: start;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .product-author {
+            font-weight: bold;
+        }
+
+        .product-publisher {
+            font-weight: bold;
+        }
+
+        .product-price {
+            font-weight: bold;
+        }
+
+        .edit-product-btn,
+        .delete-product-btn {
+            position: absolute;
+            top: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .edit-product-btn {
+            left: 10px;
+            color: #2196f3;
+        }
+
+        .delete-product-btn {
+            right: 10px;
+            color: #ff4444;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: #409242;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #45a049;
+        }
+
+        .add-to-cart-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div style="display: flex; gap: 0.8rem; align-items: center;">
+            <h1>Shopping Store</h1>
+            <a href="/" style="color: white; text-decoration: none; font-size: 1.2rem;">Add Books</a>
+            <a href="/view-book" style="color: white; text-decoration: none; font-size: 1.2rem;">View Books</a>
+        </div>
+        <div class="cart-icon" id="cartIcon">
+            <span>🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <section class="products-section">
+        <form method="post" action="/view-book" enctype="multipart/form-data">
+            <h2 style="text-align: center; margin: 1rem 0;">Our Products</h2>
+            <div class="products-container" id="productsContainer">
+                <% data.forEach((book)=> { %>
+                    <div class="product-card">
+                        <a style="color: white;text-decoration: none;" class="edit-product-btn" href="/book/edit/<%- book.id %>">✏️</a>
+                        <a style="color: white;text-decoration: none;" class="delete-product-btn" href="/book/delete/<%- book.id %>">❌</a>
+                        <div style="margin-bottom: 1rem;">
+                            <div for="product-name" class="product-name" style="text-align: center;"><%- book.name %>
+                            </div>
+                        </div>
+                        <div class="product-image">
+                            <img src="/<%- book.image %>" alt="hii" width="100px" height="100px">
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <label for="product-author" class="product-author">Author : </label>
+                            <span id="product-author"> <%- book.author %></span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <label for="product-publisher" class="product-publisher">Publisher : </label>
+                            <span id="product-publisher"> <%- book.publisher %></span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <label for="product-price" class="product-price">Price : </label>
+                            <span id="product-price"> <%- book.price %> $</span>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <% }) %>
+            </div>
+        </form>
+    </section>
+
+</body>
+
+</html>
