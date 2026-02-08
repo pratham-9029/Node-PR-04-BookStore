@@ -3,6 +3,7 @@ import { envConfig } from "./config/dotenv.js";
 import db from "./config/databse.js";
 import bodyParser from "body-parser";
 import bookModel from "./models/bookModel.js";
+import cartModel from "./models/cartModel.js";
 import imageUploads from "./middleware/imageUploads.js";
 import fs from "fs";
 
@@ -14,7 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
-    return res.render('index.ejs');
+    cartModel.find()
+    .then((data)=>{
+        return res.render('index.ejs',{data});
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 });
 
 
@@ -22,11 +29,7 @@ app.post('/', imageUploads, (req, res) => {
 
     if (req.file) {
         req.body.image = req.file.path;
-    }
-
-    console.log(req.body);
-
-
+    };
     bookModel.create(req.body)
         .then(() => {
             console.log("Product added successfully");
@@ -40,12 +43,47 @@ app.post('/', imageUploads, (req, res) => {
 app.get('/view-book', (req, res) => {
     bookModel.find()
         .then((data) => {
-            console.log(data.image);
             return res.render('pages/view-book.ejs', { data });
         })
         .catch((err) => {
             console.log(err);
         })
+
+    cartModel.find()
+    .then((cartData)=>{
+        return res.render('pages/view-book.ejs',{cartData});
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+});
+
+
+app.post('/book/cart/:id', async (req, res) => {
+    try {
+        const bookId = req.params.id;
+        
+        const bookData = await bookModel.findById(bookId);
+
+        if (!bookData) {
+            return res.redirect('/view-book');
+        }
+
+        await cartModel.create({
+            name: bookData.name,
+            image: bookData.image,
+            author: bookData.author,
+            publisher: bookData.publisher,
+            price: bookData.price
+        });
+
+        console.log("Data Added To Cart Successfully");
+        res.redirect('/view-book');
+
+    } catch (err) {
+        console.log("Error adding to cart:", err);
+        res.redirect('/view-book');
+    }
 });
 
 app.get('/book/delete/:id', (req, res) => {
@@ -102,6 +140,33 @@ app.post('/book/update/:id', imageUploads, (req, res) => {
             console.log(err);
         })
 });
+
+app.get('/view-cart',(req,res)=>{
+
+    cartModel.find()
+    .then((data)=>{
+        return res.render('pages/view-cart.ejs',{data});
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+
+})
+
+app.get('/cart/delete/:id', (req, res) => {
+
+    const dltBook = req.params.id;
+
+    cartModel.findByIdAndDelete(dltBook)
+        .then((book) => {
+            fs.unlinkSync(book.image);
+            console.log("Product deleted successfully");
+            return res.redirect('/view-cart');
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
 
 app.listen(PORT, (err) => {
     if (err) {

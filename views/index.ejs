@@ -318,12 +318,18 @@
       <h1
         style="background: -webkit-linear-gradient(#64f891, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
         Books Store</h1>
-      <a href="/" style="color: white; text-decoration: none; font-size: 1.2rem; background: -webkit-linear-gradient(#64d348, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Add Books</a>
-      <a href="/view-book" style="color: white; text-decoration: none; font-size: 1.2rem; background: -webkit-linear-gradient(#64d348, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">View Books</a>
+      <a href="/"
+        style="color: white; text-decoration: none; font-size: 1.2rem; background: -webkit-linear-gradient(#64d348, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Add
+        Books</a>
+      <a href="/view-book"
+        style="color: white; text-decoration: none; font-size: 1.2rem; background: -webkit-linear-gradient(#64d348, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">View
+        Books</a>
     </div>
     <div class="cart-icon" id="cartIcon">
-      <span>🛒</span>
-      <span class="cart-count" id="cartCount">0</span>
+      <a href="/view-cart">🛒</a>
+      <span class="cart-count" id="cartCount">
+        <%= data.length %>
+      </span>
     </div>
   </header>
 
@@ -358,7 +364,9 @@
           <input type="number" id="productPrice" name="price" step="1" min="0" required placeholder="Enter price" />
         </div>
         <button href="" type="submit" id="saveProduct" class="btn-save">
-          <a href="" style="text-decoration: none; background: -webkit-linear-gradient(#64f891, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Save Product</a>
+          <a href=""
+            style="text-decoration: none; background: -webkit-linear-gradient(#64f891, #000000); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Save
+            Product</a>
         </button>
         <button type="button" id="cancelEdit" class="btn-cancel" style="display: none">
           Cancel
@@ -381,6 +389,9 @@
   </main>
 
   <script src="./script.js"></script>
+  <script>
+
+  </script>
 </body>
 
 </html>

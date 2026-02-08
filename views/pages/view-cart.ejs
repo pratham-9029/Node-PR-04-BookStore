@@ -73,7 +73,7 @@
             gap: 1rem;
         }
 
-        .product-card {
+         .product-card {
             width: 250px;
             background: linear-gradient(90deg, transparent, #45a049, transparent);
             background-size: 200% 200%;
@@ -162,8 +162,8 @@
         }
 
         .product-price {
-            font-size: 1.1rem;
             font-weight: bold;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
         }
 
@@ -205,22 +205,20 @@
         </div>
         <div class="cart-icon" id="cartIcon">
             <a href="/view-cart">🛒</a>
-            <span class="cart-count" id="cartCount">
-                <%- data.length %>
-            </span>
+            <span class="cart-count" id="cartCount"><%= data.length %></span>
         </div>
     </header>
 
     <section class="products-section">
-        <h2 style="text-align: center; margin: 1rem 0;">Our Products</h2>
+        <h2 style="text-align: center; margin: 1rem 0;">Your Cart</h2>
         <div class="products-container" id="productsContainer">
             <% data.forEach((book)=> { %>
-                <form method="post" action="/book/cart/<%- book.id %>" enctype="multipart/form-data">
+                <form method="post" action="/cart/edit/<%- book.id %>" enctype="multipart/form-data">
                     <div class="product-card">
-                        <a style="color: white;text-decoration: none;" class="edit-product-btn"
-                            href="/book/edit/<%- book.id %>">✏️</a>
+                        <!-- <a style="color: white;text-decoration: none;" class="edit-product-btn"
+                            href="/cart/edit/<%- book.id %>">✏️</a> -->
                         <a style="color: white;text-decoration: none;" class="delete-product-btn"
-                            href="/book/delete/<%- book.id %>">❌</a>
+                            href="/cart/delete/<%- book.id %>">❌</a>
                         <div style="margin-bottom: 1rem;">
                             <div for="product-name" class="product-name" style="text-align: center;"><%- book.name %>
                             </div>
@@ -240,15 +238,13 @@
                             <label for="product-price" class="product-price">Price : </label>
                             <span id="product-price"> <%- book.price %> $</span>
                         </div>
-                        <button class="add-to-cart-btn" style="text-decoration: none;">Add to
-                            Cart</button>
+                        <button class="add-to-cart-btn" style="text-decoration: none;">Buy Now</button>
                     </div>
                 </form>
                 <% }) %>
         </div>
     </section>
 
-    <script></script>
 </body>
 
 </html>
