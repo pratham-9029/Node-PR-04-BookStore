@@ -41,21 +41,23 @@ app.post('/', imageUploads, (req, res) => {
 });
 
 app.get('/view-book', (req, res) => {
-    bookModel.find()
+    bookModel.find({})
         .then((data) => {
-            return res.render('pages/view-book.ejs', { data });
+            console.log(data);
+            
+            return res.render('./pages/view-book.ejs', { data });
         })
         .catch((err) => {
             console.log(err);
         })
 
-    cartModel.find()
-    .then((cartData)=>{
-        return res.render('pages/view-book.ejs',{cartData});
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+    // cartModel.find()
+    // .then((cartData)=>{
+    //     return res.render('./pages/view-book.ejs',{cartData});
+    // })
+    // .catch((err)=>{
+    //     console.log(err);
+    // })
 });
 
 

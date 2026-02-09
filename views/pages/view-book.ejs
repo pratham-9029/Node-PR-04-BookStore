@@ -206,7 +206,7 @@
         <div class="cart-icon" id="cartIcon">
             <a href="/view-cart">🛒</a>
             <span class="cart-count" id="cartCount">
-                <%- data.length %>
+                0
             </span>
         </div>
     </header>
@@ -214,7 +214,7 @@
     <section class="products-section">
         <h2 style="text-align: center; margin: 1rem 0;">Our Products</h2>
         <div class="products-container" id="productsContainer">
-            <% data.forEach((book)=> { %>
+            <% data?.forEach((book)=> { %>
                 <form method="post" action="/book/cart/<%- book.id %>" enctype="multipart/form-data">
                     <div class="product-card">
                         <a style="color: white;text-decoration: none;" class="edit-product-btn"

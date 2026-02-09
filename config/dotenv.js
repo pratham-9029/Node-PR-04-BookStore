@@ -3,5 +3,5 @@ dotenv.config();
 
 export const envConfig = {
     PORT: process.env.PORT,
-    MONGODB_URI: process.env.MONGODB_URL   
+    MONGODB_URI: process.env.MONGODB_URI
 }
