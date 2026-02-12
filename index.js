@@ -50,14 +50,6 @@ app.get('/view-book', (req, res) => {
         .catch((err) => {
             console.log(err);
         })
-
-    // cartModel.find()
-    // .then((cartData)=>{
-    //     return res.render('./pages/view-book.ejs',{cartData});
-    // })
-    // .catch((err)=>{
-    //     console.log(err);
-    // })
 });
 
 
